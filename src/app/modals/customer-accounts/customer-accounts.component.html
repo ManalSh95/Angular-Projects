@@ -1,0 +1,116 @@
+<div class="modal-container" *ngIf="isOpen">
+    <div class="modal-content">
+        <h2>{{title}}</h2>
+
+        <div >
+            <ul>
+                <li>
+                    <span style="font-weight: 600;">Customer Name:</span>
+                    <span>{{selectedCustomer && selectedCustomer.name}}</span>
+                </li>
+                <li>
+                    <span style="font-weight: 600;">SurName:</span>
+                    <span>{{selectedCustomer && selectedCustomer.surName}}</span>
+                </li>
+                <li>
+                    <span style="font-weight: 600;">Email:</span>
+                    <span>{{selectedCustomer && selectedCustomer.email}}</span>
+                </li>
+                <li>
+                    <span style="font-weight: 600;">Address:</span>
+                    <span>{{selectedCustomer && selectedCustomer.address}}</span>
+                </li>
+                <li>
+                    <span style="font-weight: 600;">Phone Number:</span>
+                    <span>{{selectedCustomer && selectedCustomer.phoneNb}}</span>
+                </li>
+                <li>
+                    <span style="font-weight: 600;">Customer Created at:</span>
+                    <span>{{selectedCustomer && selectedCustomer.createdAt}}</span>
+                </li>
+                <li>
+                    <span style="font-weight: 600;">Customer Accounts:</span>
+                    <span *ngIf="!viewAccounts">
+                        <button (click)="showCustomerAccounts()">View Accounts</button>
+                    </span>
+                    <span *ngIf="viewAccounts">
+                        <button (click)="hideCustomerAccounts()">Hide Accounts</button>
+                    </span>
+                </li>
+            </ul>
+            
+        </div>
+
+        <div *ngIf="viewAccounts">
+            <div>
+                <ul *ngFor="let account of selectedCustomerAccounts">
+                    <li>
+                        <span>Account Name:</span>
+                        <span>{{account.name}}</span>
+                    </li>
+                    <li>
+                        <span>Account Balance:</span>
+                        <span>{{account.balance}}</span>
+                    </li>
+                    <li>
+                        <span>
+                            <button (click)="openTransactionsModal(account.id)"></button>
+                        </span>
+                    </li>
+                <li>
+                    
+                </li>
+                    <!-- <li>
+                        
+                            <span *ngIf="!viewTransactions">
+                                <button (click)="showAccountTransactions(account.id)">View Transactions</button>
+                            </span>
+                            <span *ngIf="viewTransactions">
+                                <button (click)="hideAccountTransactions()">Hide Transactions</button>
+                            </span>
+                    </li>
+                    <li *ngIf="viewTransactions">    
+                        <ul *ngFor="let transaction of transactions">
+                            <li>
+                                <span>Transaction Amount:</span>
+                                <span>{{transaction.amount}}</span>
+                            </li>
+                            <li>
+                                <span>Transaction Date:</span>
+                                <span>{{transaction.transactionDate}}</span>
+                            </li>
+                        </ul>
+                    </li> -->
+                    
+                </ul>
+            </div>
+        </div>
+
+<div>
+    <button 
+        class="createAccount" 
+        (click)="openCreateAccountModal(updatedId)">
+        Create New Account 
+    </button>
+</div>
+        <button (click)="closeModal()">Close</button>
+    </div>
+</div>
+
+<div>
+<app-create-new-account 
+    (closed)="onModalClosed($event)" 
+    [isOpen]="openNewAccount" 
+    title="Create New Account For {{selectedCustomer && selectedCustomer.name}} {{selectedCustomer && selectedCustomer.surName}}" 
+    [currentCustomerId]="updatedId">
+</app-create-new-account>
+</div>
+<div>
+    <app-account-transactions 
+    (closed)="OnTransationsModalClosed($event)"
+     [viewTransactionsModal]="viewTransactionsModal" 
+     title="Account Transactions For {{updatedAccountId && updatedAccountId}}" 
+     [accountId]="accountId">
+
+    </app-account-transactions>
+</div>

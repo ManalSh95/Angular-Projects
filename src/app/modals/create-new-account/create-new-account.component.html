@@ -1,0 +1,18 @@
+<div class="modal-container" *ngIf="isOpen">
+    <div class="modal-content">
+        <h2>{{title}}</h2>
+        <div style="margin-top: 10px; margin-bottom: 10px;">
+            <h4 style="font-weight: 600;">Initial Credit:</h4>
+            <input type="number" [(ngModel)]="initialCredit">
+        </div>
+        <div style="margin-top: 10px; margin-bottom: 10px;">
+            <h4 style="font-weight: 600;">Account Name</h4>
+            <input type="text" [(ngModel)]="accountName">
+        </div>
+<div>
+    <button class="createAccount" (click)="onSubmit()">Create</button>
+
+</div>
+        <button (click)="closeCreateAccountModal()">Close</button>
+    </div>
+</div>

@@ -1,0 +1,30 @@
+<div class="container">
+    <h2 >{{ title }}</h2>
+
+    <div *ngIf="customers.length > 0">
+        <ul>
+            <li>
+                <span style="font-weight: 600;">Name</span>
+                <span style="font-weight: 600;">SurName</span>
+                <span style="font-weight: 600;">View Details</span>
+            </li>
+            <ul *ngFor="let customer of customers;">
+                <li>
+                    <span>{{customer.name}}</span>
+                    <span>{{customer.surName}}</span>
+                    <button (click)="openModal(customer.id)">View</button>
+                </li>
+            </ul>
+            
+        </ul>
+        
+    </div>
+    <div *ngIf="customers.length === 0">
+        No customers were found
+    </div>
+
+    <div>
+        <app-customer-accounts (closed)="onModalClosed($event)" [isOpen]="viewModal" title="Customer Details" [customerId]="customerId"></app-customer-accounts>
+    </div>
+
+</div>

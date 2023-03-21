@@ -1,0 +1,23 @@
+<div class="modal-container" *ngIf="viewTransactionsModal">
+    <div class="modal-content">
+<div>
+    {{title}}
+</div>
+        <div *ngIf="transactions.length > 0">
+            <ul *ngFor="let transaction of transactions">
+                <li>
+                    <span>Transaction Amount:</span>
+                    <span>{{transaction.amount}}</span>
+                </li>
+                <li>
+                    <span>Transaction Date:</span>
+                    <span>{{transaction.transactionDate}}</span>
+                </li>
+            </ul>
+        </div>
+        <div *ngIf="transactions.length === 0">
+            <p>There are no transactions for this account</p>
+        </div>
+        <button (click)="closeModal()">Close</button>
+    </div>
+</div>
